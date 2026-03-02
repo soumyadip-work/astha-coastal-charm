@@ -43,9 +43,8 @@ const Explore = () => {
           {places.map((place, i) => (
             <div
               key={place.title}
-              className={`rounded-sm overflow-hidden group relative h-72 ${
-                reveal.isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"
-              }`}
+              className={`rounded-sm overflow-hidden group relative h-56 md:h-60 ${reveal.isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"
+                }`}
               style={{ animationDelay: `${200 + i * 120}ms` }}
             >
               <img
@@ -53,10 +52,10 @@ const Explore = () => {
                 alt={place.title}
                 className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <h3 className="text-xl font-semibold text-primary-foreground mb-1">{place.title}</h3>
-                <p className="text-sm text-primary-foreground/80 font-body">{place.desc}</p>
+                <h3 className="text-xl font-semibold text-white mb-1">{place.title}</h3>
+                <p className="text-sm text-white/80 font-body">{place.desc}</p>
               </div>
             </div>
           ))}

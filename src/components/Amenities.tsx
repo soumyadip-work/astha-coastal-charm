@@ -28,9 +28,8 @@ const Amenities = () => {
           {amenities.map(({ icon: Icon, label }, i) => (
             <div
               key={label}
-              className={`flex flex-col items-center gap-3 p-6 rounded-sm bg-muted hover:bg-sand-light transition-all duration-300 hover-scale ${
-                reveal.isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"
-              }`}
+              className={`flex flex-col items-center gap-3 p-6 rounded-sm bg-muted hover:bg-sand-light transition-all duration-300 hover-scale ${reveal.isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"
+                }`}
               style={{ animationDelay: `${100 + i * 70}ms` }}
             >
               <Icon className="w-7 h-7 text-primary" strokeWidth={1.5} />

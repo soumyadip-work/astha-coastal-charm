@@ -115,11 +115,10 @@ const Gallery = () => {
             <button
               key={cat}
               onClick={() => setActive(cat)}
-              className={`px-5 py-2 rounded-full text-sm font-semibold font-body transition-all duration-300 ${
-                active === cat
+              className={`px-5 py-2 rounded-full text-sm font-semibold font-body transition-all duration-300 ${active === cat
                   ? "bg-primary text-primary-foreground"
                   : "bg-muted text-muted-foreground hover:bg-sand-light"
-              }`}
+                }`}
             >
               {cat}
             </button>
@@ -193,9 +192,8 @@ function GalleryItem({ image, index, onClick }: { image: GalleryImage; index: nu
   return (
     <div
       ref={ref}
-      className={`overflow-hidden rounded-sm cursor-pointer group ${
-        isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"
-      }`}
+      className={`overflow-hidden rounded-sm cursor-pointer group ${isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"
+        }`}
       style={{ animationDelay: `${index * 60}ms` }}
       onClick={onClick}
     >

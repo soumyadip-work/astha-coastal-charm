@@ -1,4 +1,5 @@
-import { useScrollReveal } from "@/hooks/use-scroll-reveal";
+import { Reveal, RevealText } from "@/components/Reveal";
+import { motion } from "framer-motion";
 import roomClassic from "@/assets/room-classic.jpg";
 import roomDeluxe from "@/assets/room-deluxe.jpg";
 import roomFamily from "@/assets/room-family.jpg";
@@ -22,49 +23,60 @@ const rooms = [
 ];
 
 const Rooms = () => {
-  const reveal = useScrollReveal();
-
   return (
-    <section id="rooms" className="section-padding bg-muted">
+    <section id="rooms" className="section-padding bg-muted relative">
       <div className="container mx-auto">
-        <div ref={reveal.ref} className={reveal.isVisible ? "reveal-visible" : "reveal-hidden"}>
-          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 font-body">Our Rooms</p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-12">
-            Find Your Perfect <em className="italic">Sanctuary</em>
-          </h2>
+        <div className="mb-20">
+          <Reveal delay={0.1}>
+            <p className="text-xs md:text-sm uppercase tracking-[0.3em] text-muted-foreground mb-4 font-body font-semibold">Our Rooms</p>
+          </Reveal>
+          <RevealText
+            text="Find Your Perfect Sanctuary"
+            className="text-4xl md:text-5xl lg:text-7xl font-semibold text-foreground font-display"
+          />
         </div>
-        <div className="grid md:grid-cols-3 gap-6">
+
+        <div className="grid md:grid-cols-3 gap-8">
           {rooms.map((room, i) => (
-            <div
-              key={room.name}
-              className={`bg-background rounded-sm overflow-hidden group ${reveal.isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"}`}
-              style={{ animationDelay: `${200 + i * 120}ms` }}
-            >
-              <div className="overflow-hidden">
-                <img
-                  src={room.image}
-                  alt={room.name}
-                  className="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-foreground mb-4">{room.name}</h3>
-                <ul className="space-y-2 mb-6">
-                  {room.features.map((f) => (
-                    <li key={f} className="text-sm text-muted-foreground font-body flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent shrink-0" />
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  className="inline-block text-sm font-semibold text-primary hover:text-ocean-light transition-colors uppercase tracking-wider font-body"
-                >
-                  View Details →
-                </a>
-              </div>
-            </div>
+            <Reveal key={room.name} delay={i * 0.2}>
+              <motion.div
+                whileHover={{ y: -16 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                className="bg-background rounded-3xl overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] hover:shadow-[0_20px_40px_rgb(0,0,0,0.12)] flex flex-col h-full border border-border/40"
+              >
+                <div className="overflow-hidden h-72 w-full relative">
+                  <motion.img
+                    whileHover={{ scale: 1.08 }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    src={room.image}
+                    alt={room.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-8 flex-1 flex flex-col">
+                  <h3 className="text-2xl font-semibold text-foreground mb-6 font-display tracking-wide">{room.name}</h3>
+                  <ul className="space-y-4 mb-10 flex-1">
+                    {room.features.map((f) => (
+                      <li key={f} className="text-base text-muted-foreground font-body flex items-center gap-4">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0 opacity-80" />
+                        <span className="font-light">{f}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href="#contact"
+                    className="inline-flex items-center text-sm font-semibold text-primary hover:text-primary/70 transition-colors uppercase tracking-[0.2em] font-body group"
+                  >
+                    View Details
+                    <motion.span
+                      className="ml-2 inline-block"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 400 }}
+                    >→</motion.span>
+                  </a>
+                </div>
+              </motion.div>
+            </Reveal>
           ))}
         </div>
       </div>
