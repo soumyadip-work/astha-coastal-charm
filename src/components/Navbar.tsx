@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const navLinks = [
   { label: "Home", href: "#home" },
@@ -7,6 +8,7 @@ const navLinks = [
   { label: "Rooms", href: "#rooms" },
   { label: "Dining", href: "#dining" },
   { label: "Explore", href: "#explore" },
+  { label: "Gallery", href: "/gallery", isRoute: true },
   { label: "Reviews", href: "#reviews" },
   { label: "Contact", href: "#contact" },
 ];
@@ -21,15 +23,25 @@ const Navbar = () => {
           Astha
         </a>
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors tracking-wide uppercase"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors tracking-wide uppercase"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                className="text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground transition-colors tracking-wide uppercase"
+              >
+                {link.label}
+              </a>
+            )
+          )}
         </div>
         <a
           href="#contact"
@@ -46,17 +58,28 @@ const Navbar = () => {
         </button>
       </div>
       {open && (
-        <div className="md:hidden bg-primary/95 backdrop-blur-md px-6 pb-6 space-y-4">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground uppercase tracking-wide"
-            >
-              {link.label}
-            </a>
-          ))}
+        <div className="md:hidden bg-primary/95 backdrop-blur-md px-6 pb-6 space-y-4 animate-fade-in">
+          {navLinks.map((link) =>
+            link.isRoute ? (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={() => setOpen(false)}
+                className="block text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground uppercase tracking-wide"
+              >
+                {link.label}
+              </Link>
+            ) : (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className="block text-sm font-medium text-primary-foreground/80 hover:text-primary-foreground uppercase tracking-wide"
+              >
+                {link.label}
+              </a>
+            )
+          )}
           <a
             href="#contact"
             onClick={() => setOpen(false)}

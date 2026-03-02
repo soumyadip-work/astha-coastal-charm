@@ -1,3 +1,4 @@
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import beachDrive from "@/assets/beach-drive.jpg";
 import redCrabs from "@/assets/red-crabs.jpg";
 import waterSports from "@/assets/water-sports.jpg";
@@ -27,16 +28,26 @@ const places = [
 ];
 
 const Explore = () => {
+  const reveal = useScrollReveal();
+
   return (
     <section id="explore" className="section-padding bg-muted">
       <div className="container mx-auto">
-        <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 font-body">Nearby</p>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-12">
-          Discover the Wonders <em className="italic">Around Us</em>
-        </h2>
+        <div ref={reveal.ref} className={reveal.isVisible ? "reveal-visible" : "reveal-hidden"}>
+          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 font-body">Nearby</p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-12">
+            Discover the Wonders <em className="italic">Around Us</em>
+          </h2>
+        </div>
         <div className="grid md:grid-cols-2 gap-6">
-          {places.map((place) => (
-            <div key={place.title} className="rounded-sm overflow-hidden group relative h-72">
+          {places.map((place, i) => (
+            <div
+              key={place.title}
+              className={`rounded-sm overflow-hidden group relative h-72 ${
+                reveal.isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"
+              }`}
+              style={{ animationDelay: `${200 + i * 120}ms` }}
+            >
               <img
                 src={place.image}
                 alt={place.title}
