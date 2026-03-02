@@ -1,3 +1,4 @@
+import { useScrollReveal } from "@/hooks/use-scroll-reveal";
 import roomClassic from "@/assets/room-classic.jpg";
 import roomDeluxe from "@/assets/room-deluxe.jpg";
 import roomFamily from "@/assets/room-family.jpg";
@@ -21,16 +22,24 @@ const rooms = [
 ];
 
 const Rooms = () => {
+  const reveal = useScrollReveal();
+
   return (
     <section id="rooms" className="section-padding bg-muted">
       <div className="container mx-auto">
-        <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 font-body">Our Rooms</p>
-        <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-12">
-          Find Your Perfect <em className="italic">Sanctuary</em>
-        </h2>
+        <div ref={reveal.ref} className={reveal.isVisible ? "reveal-visible" : "reveal-hidden"}>
+          <p className="text-sm uppercase tracking-[0.2em] text-muted-foreground mb-4 font-body">Our Rooms</p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-semibold text-foreground mb-12">
+            Find Your Perfect <em className="italic">Sanctuary</em>
+          </h2>
+        </div>
         <div className="grid md:grid-cols-3 gap-6">
-          {rooms.map((room) => (
-            <div key={room.name} className="bg-background rounded-sm overflow-hidden group">
+          {rooms.map((room, i) => (
+            <div
+              key={room.name}
+              className={`bg-background rounded-sm overflow-hidden group ${reveal.isVisible ? "reveal-scale-visible" : "reveal-scale-hidden"}`}
+              style={{ animationDelay: `${200 + i * 120}ms` }}
+            >
               <div className="overflow-hidden">
                 <img
                   src={room.image}
